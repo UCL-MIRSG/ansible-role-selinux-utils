@@ -18,5 +18,6 @@ provisioner:
     converge: ../resources/converge.yml
 verifier:
   name: testinfra
+  directory: ../resources/tests
 
 # TODO: Add a vagrant test scenario
