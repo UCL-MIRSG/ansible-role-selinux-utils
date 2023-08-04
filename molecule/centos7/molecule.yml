@@ -10,12 +10,12 @@ lint: |
 platforms:
   - name: selinux-utils-docker
     image: centos:7
-  - name: selinux-utils-docker
-    image: rockylinux:8
 provisioner:
   name: ansible
   lint:
     name: ansible-lint
+  playbooks:
+    converge: ../resources/converge.yml
 verifier:
   name: testinfra
 
