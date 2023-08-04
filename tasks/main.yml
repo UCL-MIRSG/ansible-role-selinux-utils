@@ -25,8 +25,23 @@
       {{ selinux_getenforce_st.stat.exists and
          selinux_getenforce.stdout != 'Disabled' }}
 
-- import_tasks: redhat.yaml
-  when: ansible_os_family | lower == 'redhat'
+- name: system packages | install selinux utilities
+  become: true
+  package:
+    name:
+      - libselinux-python
+      - libsemanage-python
+      - policycoreutils-python
+    state: present
+  when: selinux_enabled and ansible_facts['distribution_major_version'] == "7"
 
-- import_tasks: debian.yaml
-  when: ansible_os_family | lower == 'debian'
+- name: system packages | install selinux utilities
+  become: true
+  package:
+    name:
+      - python3-libselinux
+      - python3-libsemanage
+      - policycoreutils-python-utils
+    state: present
+  when: selinux_enabled and ansible_facts['distribution_major_version'] == "8"
+
